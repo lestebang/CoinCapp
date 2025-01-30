@@ -46,7 +46,7 @@ private fun ScreenContent(navController: NavController? = null) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    "Weather App v1.0",
+                    "CoinCap App v1.0",
                     style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
@@ -54,7 +54,7 @@ private fun ScreenContent(navController: NavController? = null) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    "https://api.openweathermap.org/",
+                    "https://api.coincap.io/",
                     style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Normal

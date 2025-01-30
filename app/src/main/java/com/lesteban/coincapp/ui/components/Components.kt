@@ -63,7 +63,7 @@ enum class EnumAppBarAction {
     SEARCH,
     FAVORITE,
     ABOUT,
-    SETTINGS
+//    SETTINGS
 }
 
 enum class EnumAction {
@@ -130,10 +130,10 @@ fun BaseAppBar(
                         appBarMenuState.value = false
                         onActionButtonClicked(EnumAppBarAction.ABOUT)
                     }
-                    AppDropDownMenuItem("Settings", Icons.Default.Settings) {
-                        appBarMenuState.value = false
-                        onActionButtonClicked(EnumAppBarAction.SETTINGS)
-                    }
+//                    AppDropDownMenuItem("Settings", Icons.Default.Settings) {
+//                        appBarMenuState.value = false
+//                        onActionButtonClicked(EnumAppBarAction.SETTINGS)
+//                    }
                 }
             }
         },

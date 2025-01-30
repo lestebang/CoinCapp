@@ -69,11 +69,11 @@ fun SplashScreen(navController: NavController? = null) {
                 Image(
                     modifier = Modifier.size(90.dp),
                     painter = painterResource(R.drawable.coincap),
-                    contentDescription = "Icon Sun",
+                    contentDescription = "Icon CoinCap",
                     contentScale = ContentScale.Fit
                 )
                 Text(
-                    text = "Find the Sun?",
+                    text = "Hold up to died!",
                     style = MaterialTheme.typography.titleMedium
                 )
             }

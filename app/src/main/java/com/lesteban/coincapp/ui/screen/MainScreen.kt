@@ -214,7 +214,7 @@ private fun navigateTo(navController: NavController?, enumAction: EnumAppBarActi
         EnumAppBarAction.SEARCH -> EnumScreen.SEARCH_SCREEN.name
         EnumAppBarAction.FAVORITE -> EnumScreen.FAVORITE_SCREEN.name
         EnumAppBarAction.ABOUT -> EnumScreen.ABOUT_SCREEN.name
-        EnumAppBarAction.SETTINGS -> EnumScreen.SETTINGS_SCREEN.name
+//        EnumAppBarAction.SETTINGS -> EnumScreen.SETTINGS_SCREEN.name
     }
     navController?.navigate(screenName)
 }
