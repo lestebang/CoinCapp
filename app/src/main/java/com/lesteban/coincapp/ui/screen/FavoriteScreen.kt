@@ -79,7 +79,7 @@ private fun ScreenContent(navController: NavController? = null) {
 }
 
 @Composable
-private fun ShowFavorites(modifier: Modifier, favoriteList: List<Favorite>, onShowWeather: (Favorite) -> Unit, onRemove: (Favorite) -> Unit) {
+fun ShowFavorites(modifier: Modifier, favoriteList: List<Favorite>, onShowWeather: (Favorite) -> Unit, onRemove: (Favorite) -> Unit) {
     if (favoriteList.isNotEmpty()) {
         LazyColumn(modifier = modifier) {
             items(items = favoriteList) { favorite ->

@@ -1,7 +1,7 @@
 package  com.lesteban.coincapp.ui.screen
 
 import android.content.Context
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,13 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -115,7 +110,7 @@ private fun ScreenContent(
                     .padding(innerPadding)
             ) {
                 if (coinCappAssetsResponse != null) {
-                    WeatherContent(coinCappAssetsResponse)
+                    WeatherContent(navController, coinCappAssetsResponse, context)
                 } else {
                     Text(
                         modifier = Modifier
@@ -137,7 +132,7 @@ private fun ScreenContent(
 }
 
 @Composable
-private fun WeatherContent(coinCappAssetsResponse: CoinCappAssetsResponse) {
+private fun WeatherContent(navController: NavController, coinCappAssetsResponse: CoinCappAssetsResponse, context: Context) {
     val viewmodelSettings = hiltViewModel<SettingsViewmodel>()
 
     val weeklyWeatherList = coinCappAssetsResponse.data
@@ -152,17 +147,21 @@ private fun WeatherContent(coinCappAssetsResponse: CoinCappAssetsResponse) {
         HorizontalDivider()
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(items = weeklyWeatherList) { weather ->
-                WeatherItem(weather)
+                WeatherItem(weather, onItemClick = {
+                    navigateToScreen(navController, EnumScreen.COIN_SCREEN)
+                    showToast(context = context,"Clicked")
+                })
             }
         }
     }
 }
 
 @Composable
-private fun WeatherItem(coin: DataX) {
+private fun WeatherItem(coin: DataX, onItemClick: (DataX) -> Unit) {
     Column {
         Row(
             modifier = Modifier
+                .clickable { onItemClick(coin) }
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -213,8 +212,22 @@ private fun navigateTo(navController: NavController?, enumAction: EnumAppBarActi
     val screenName: String = when (enumAction) {
         EnumAppBarAction.SEARCH -> EnumScreen.SEARCH_SCREEN.name
         EnumAppBarAction.FAVORITE -> EnumScreen.FAVORITE_SCREEN.name
+//        EnumAppBarAction.COIN -> EnumScreen.COIN_SCREEN.name
         EnumAppBarAction.ABOUT -> EnumScreen.ABOUT_SCREEN.name
 //        EnumAppBarAction.SETTINGS -> EnumScreen.SETTINGS_SCREEN.name
+    }
+    navController?.navigate(screenName)
+}
+
+private fun navigateToScreen(navController: NavController?, enumScreen: EnumScreen) {
+    val screenName: String = when (enumScreen) {
+       EnumScreen.COIN_SCREEN -> EnumScreen.COIN_SCREEN.name
+        EnumScreen.SPLASH_SCREEN -> TODO()
+        EnumScreen.MAIN_SCREEN -> TODO()
+        EnumScreen.ABOUT_SCREEN -> TODO()
+        EnumScreen.FAVORITE_SCREEN -> TODO()
+        EnumScreen.SEARCH_SCREEN -> TODO()
+        EnumScreen.SETTINGS_SCREEN -> TODO()
     }
     navController?.navigate(screenName)
 }

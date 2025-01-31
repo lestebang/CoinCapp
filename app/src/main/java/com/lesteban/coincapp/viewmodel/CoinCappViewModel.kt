@@ -16,21 +16,9 @@ import javax.inject.Inject
 class CoinCappViewModel @Inject constructor(
     private val coinCappRepository: CoinCappRepository
 ): ViewModel() {
-    private val _coinCappDataState = MutableStateFlow<ResponseApi<CoinCappResponse>>(ResponseApi.Loading())
-    val coinCappDataState: StateFlow<ResponseApi<CoinCappResponse>> = _coinCappDataState
-
 
     private val _coinCappAssetsDataState = MutableStateFlow<ResponseApi<CoinCappAssetsResponse>>(ResponseApi.Loading())
     val coinCappAssetsDataState: StateFlow<ResponseApi<CoinCappAssetsResponse>> = _coinCappAssetsDataState
-
-
-    fun fetchCurrentCoinCapp(coin: String)  {
-        viewModelScope.launch {
-            _coinCappDataState.value = ResponseApi.Loading()
-            val result = coinCappRepository.fetchCoinCappCoin(coin)
-            _coinCappDataState.value = result
-        }
-    }
 
     fun fetchAssets()  {
         viewModelScope.launch {

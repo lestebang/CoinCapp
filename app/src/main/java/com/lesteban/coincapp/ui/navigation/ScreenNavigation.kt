@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lesteban.coincapp.ui.screen.AboutScreen
+import com.lesteban.coincapp.ui.screen.CoinScreen
 import com.lesteban.coincapp.ui.screen.FavoriteScreen
 import com.lesteban.coincapp.ui.screen.MainScreen
 import com.lesteban.coincapp.ui.screen.SearchScreen
@@ -39,6 +40,10 @@ fun ScreenNavigation() {
 
         composable(route = EnumScreen.FAVORITE_SCREEN.name) {
             FavoriteScreen(navController)
+        }
+
+        composable(route = EnumScreen.COIN_SCREEN.name) {
+            CoinScreen(navController)
         }
 
         composable(route = EnumScreen.SEARCH_SCREEN.name) {

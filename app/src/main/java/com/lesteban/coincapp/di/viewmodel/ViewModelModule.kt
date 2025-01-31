@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import com.lesteban.coincapp.data.api.CoinCappAPI
 import com.lesteban.coincapp.data.db.FavoriteDao
 import com.lesteban.coincapp.data.repo.CoinCappRepository
+import com.lesteban.coincapp.data.repo.CoinRepository
 import com.lesteban.coincapp.data.repo.FavoriteRepository
 import com.lesteban.coincapp.data.repo.SettingsRepository
 import dagger.Module
@@ -28,6 +29,10 @@ class ViewModelModule {
     @Provides
     @ViewModelScoped
     fun settingsRepository(dataStore: DataStore<Preferences>) = SettingsRepository(dataStore)
+
+    @Provides
+    @ViewModelScoped
+    fun coinRepository(coinCappAPI: CoinCappAPI) = CoinRepository(coinCappAPI)
 
 
 }
