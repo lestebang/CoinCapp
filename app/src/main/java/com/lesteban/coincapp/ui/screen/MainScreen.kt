@@ -148,8 +148,7 @@ private fun WeatherContent(navController: NavController, coinCappAssetsResponse:
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(items = weeklyWeatherList) { weather ->
                 WeatherItem(weather, onItemClick = {
-                    navigateToScreen(navController, EnumScreen.COIN_SCREEN)
-                    showToast(context = context,"Clicked")
+                    navigateToScreen(navController, EnumScreen.COIN_SCREEN,  weather.id)
                 })
             }
         }
@@ -219,7 +218,7 @@ private fun navigateTo(navController: NavController?, enumAction: EnumAppBarActi
     navController?.navigate(screenName)
 }
 
-private fun navigateToScreen(navController: NavController?, enumScreen: EnumScreen) {
+private fun navigateToScreen(navController: NavController?, enumScreen: EnumScreen, strParam: String = "") {
     val screenName: String = when (enumScreen) {
        EnumScreen.COIN_SCREEN -> EnumScreen.COIN_SCREEN.name
         EnumScreen.SPLASH_SCREEN -> TODO()
@@ -229,7 +228,11 @@ private fun navigateToScreen(navController: NavController?, enumScreen: EnumScre
         EnumScreen.SEARCH_SCREEN -> TODO()
         EnumScreen.SETTINGS_SCREEN -> TODO()
     }
-    navController?.navigate(screenName)
+    if(strParam!=""){
+        navController?.navigate("$screenName/$strParam")
+    }else{
+        navController?.navigate(screenName)
+    }
 }
 
 private fun addRemoveFavorite(

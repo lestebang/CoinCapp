@@ -43,13 +43,12 @@ import com.lesteban.coincapp.viewmodel.FavoriteViewmodel
 import com.lesteban.coincapp.viewmodel.SettingsViewmodel
 
 @Composable
-fun CoinScreen (navController: NavController) {
-    ScreenContent(navController)
+fun CoinScreen (navController: NavController,message:String) {
+    ScreenContent(navController,message)
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun ScreenContent(navController: NavController? = null) {
+private fun ScreenContent(navController: NavController? = null, coin: String) {
     val viewModel = hiltViewModel<CoinViewModel>()
     val weatherDataState = viewModel.coinCappDataState.collectAsState()
 
@@ -70,7 +69,7 @@ private fun ScreenContent(navController: NavController? = null) {
     }
 
     LaunchedEffect(Unit) {
-        viewModel.fetchCurrentCoinCapp("cardano")
+        viewModel.fetchCurrentCoinCapp(coin)
     }
 
 }

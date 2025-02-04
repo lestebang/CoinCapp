@@ -15,6 +15,7 @@ import com.lesteban.coincapp.ui.screen.SplashScreen
 import com.lesteban.coincapp.utils.Constant
 import com.lesteban.coincapp.viewmodel.SettingsViewmodel
 
+
 @Composable
 fun ScreenNavigation() {
     val navController = rememberNavController()
@@ -42,8 +43,8 @@ fun ScreenNavigation() {
             FavoriteScreen(navController)
         }
 
-        composable(route = EnumScreen.COIN_SCREEN.name) {
-            CoinScreen(navController)
+        composable(route = EnumScreen.COIN_SCREEN.name+"/{message}") {backStackEntry->
+            CoinScreen(navController,message = backStackEntry.arguments?.getString("message")!!)
         }
 
         composable(route = EnumScreen.SEARCH_SCREEN.name) {
