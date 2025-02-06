@@ -31,8 +31,12 @@ import androidx.navigation.NavController
 import com.lesteban.coincapp.data.api.ResponseApi
 import com.lesteban.coincapp.model.CoinCappAssetsResponse
 import com.lesteban.coincapp.model.CoinCappResponse
+import com.lesteban.coincapp.model.Data
+import com.lesteban.coincapp.model.DataX
+import com.lesteban.coincapp.model.Favorite
 import com.lesteban.coincapp.ui.components.AppLoader
 import com.lesteban.coincapp.ui.components.BaseAppBar
+import com.lesteban.coincapp.ui.components.EnumAction
 import com.lesteban.coincapp.ui.navigation.EnumScreen
 import com.lesteban.coincapp.utils.Constant
 import com.lesteban.coincapp.utils.capsEachWord
@@ -84,7 +88,7 @@ private fun ScreenCoinContent(
 
     val context = LocalContext.current
     val viewModel = hiltViewModel<FavoriteViewmodel>()
-    if (coinCappResponse?.data!!.name != null) viewModel.isFavorite(city = "Cardano")
+    viewModel.isFavorite(city = coinCappResponse?.data!!.name)
 
     Scaffold(
         topBar = {
@@ -96,7 +100,7 @@ private fun ScreenCoinContent(
                 },
                 onAddRemoveFavorite = { action ->
                     debug("Favorite Action: ${action.name}")
-                    //addRemoveFavorite(context, viewModel, action, coin)
+                    addRemoveFavorite(context, viewModel, action, coinCappResponse.data)
                 }
             )
         },
@@ -142,5 +146,26 @@ private fun WeatherContent(navController: NavController, coinCappResponse: CoinC
         Text(text = coinCappResponse.data.symbol)
         Text(text = coinCappResponse.data.supply)
         Text(text = coinCappResponse.data.priceUsd)
+    }
+}
+
+private fun addRemoveFavorite(
+    context: Context,
+    viewModel: FavoriteViewmodel,
+    action: EnumAction,
+    city: Data?
+) {
+    if (city != null) {
+        when (action) {
+            EnumAction.ADD -> {
+                viewModel.addFavorite(Favorite(coin = city.symbol, name = city.name))
+                showToast(context, "City Added Into Favorite")
+            }
+
+            EnumAction.REMOVE -> {
+                viewModel.removeFavorite(Favorite(coin = city.symbol, name = city.name))
+                showToast(context, "City Removed From Favorite")
+            }
+        }
     }
 }

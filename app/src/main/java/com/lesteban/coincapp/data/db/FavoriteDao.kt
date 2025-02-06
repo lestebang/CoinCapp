@@ -19,6 +19,6 @@ interface FavoriteDao {
     @Query("SELECT * FROM Favorite")
     fun fetchFavorites(): Flow<List<Favorite>>
 
-    @Query("SELECT EXISTS(SELECT 1 FROM Favorite WHERE coin = :coin)")
+    @Query("SELECT EXISTS(SELECT 1 FROM Favorite WHERE name = :coin)")
     fun isFavorite(coin: String): Flow<Boolean>
 }
